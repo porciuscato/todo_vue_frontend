@@ -14,6 +14,9 @@
 
 <script>
 import axios from 'axios'
+// export default router를 해서
+import router from '@/router'
+
 export default {
  name: "LoginForm",
  data() {
@@ -26,7 +29,12 @@ export default {
     //  console.log(this.credentials)
      axios.post('http://localhost:8000/api-token-auth/', 
      this.credentials).then(res => {
-       console.log(res)
+       console.log(res.data.token)
+      this.$session.start()
+      this.$session.set('jwt', res.data.token)
+      // this.$router.push('/')
+      // root url로 간다
+      router.push('/')
      })
    }
  },

@@ -9,6 +9,7 @@
 <script>
 import TodoList from '@/components/TodoList'
 import TodoInput from '@/components/TodoInput'
+import router from '../router'
 
 export default {
   name: 'home',
@@ -26,7 +27,19 @@ export default {
       ],
     }
   },
-  
+  methods: {
+    loggedIn() {
+      this.$session.start()
+      if (!this.$session.has('jwt')) {
+        router.push('/login')
+      }
+    },
+  },
+
+  // 8개의 life cycle hook
+  mounted() {
+    this.loggedIn()
+  },
 }
 </script>
 
